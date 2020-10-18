@@ -9,18 +9,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace _6.gyak
 {
     public partial class Form1 : Form
-    { BindingList<RateData> rt = new BindingList<RateData>();
+    { BindingList<RateData> Rates = new BindingList<RateData>();
+        public string rslt;
        
         public Form1()
         {
             InitializeComponent();
-            GetExchangeRates();
 
-            dataGridView1.DataSource = rt;
+            GetExchangeRates();
+            dataGridView1.DataSource = Rates;
+
+            GetXML();
+        }
+
+        private void GetXML()
+        {
+            
+            var xml = new XmlDocument();
+            xml.LoadXml(rslt);
+
+           
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+               
+                var rate = new RateData();
+                Rates.Add(rate);
+
+              
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+               
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
         }
 
         private void GetExchangeRates()
@@ -39,6 +70,7 @@ namespace _6.gyak
 
          
             var result = response.GetExchangeRatesResult;
+            rslt = result;
         }
     }
 }
