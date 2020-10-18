@@ -21,13 +21,20 @@ namespace _6.gyak
         public Form1()
         {
             InitializeComponent();
+            RefreshData();
 
+        }
+
+        private void RefreshData()
+        {
+            Rates.Clear();
             GetExchangeRates();
             dataGridView1.DataSource = Rates;
 
             GetXML();
 
             GetDiagram();
+            
         }
 
         private void GetDiagram()
@@ -82,9 +89,9 @@ namespace _6.gyak
 
             var request = new GetExchangeRatesRequestBody()
             {
-                currencyNames = "EUR",
-                startDate = "2020-01-01",
-                endDate = "2020-06-30"
+                currencyNames = comboBox1.SelectedItem.ToString(),
+                startDate = dateTimePicker1.Value.ToString(),
+                endDate = dateTimePicker2.Value.ToString(),
             };
 
           
@@ -93,6 +100,22 @@ namespace _6.gyak
          
             var result = response.GetExchangeRatesResult;
             rslt = result;
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            RefreshData();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshData();
         }
     }
 }
