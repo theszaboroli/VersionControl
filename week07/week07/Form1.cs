@@ -31,7 +31,7 @@ namespace week07
 
 
 
-            simulation();
+           
 
 
         }
@@ -163,6 +163,29 @@ namespace week07
             return birthProbabilities;
         }
 
+        private void start_Click(object sender, EventArgs e)
+        {
+            simulation();
+        }
 
+        private void browse_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog oft = new OpenFileDialog();
+            if (oft.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                textBox1.Text = oft.InitialDirectory + oft.FileName;
+            }
+
+        }
     }
+
+  /* list <ferfi>;
+    list <no>;
+    
+
+        void DisplayResults;
+    RichTextBox.Clear;  
+    
+    ez nem sikerült inkább kiszedtem
+     */
 }
