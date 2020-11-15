@@ -13,5 +13,10 @@ namespace _8_gyak.Entities
         {
             return new Car();
         }
+
+        Toy IToyFactory.CreateNew()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
