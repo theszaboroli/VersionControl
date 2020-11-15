@@ -9,13 +9,20 @@ using System.Windows.Forms;
 
 namespace _8_gyak.Entities
 {
-   public class Ball : Toy
-    { 
-        protected override void DrawImage(Graphics g)
+    public class Ball : Toy
+    {
+        public SolidBrush BallColor { get; private set; }
+
+        public Ball(Color color)
         {
-            g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
+            BallColor = new SolidBrush(color);
         }
 
-     
+        protected override void DrawImage(Graphics g)
+        {
+            g.FillEllipse(BallColor, 0, 0, Width, Height);
+
+
+        }
     }
 }

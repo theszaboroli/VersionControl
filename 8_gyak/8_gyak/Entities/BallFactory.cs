@@ -9,9 +9,11 @@ namespace _8_gyak.Entities
 {
     public class BallFactory : IToyFactory
     {
+        public Color BallColor { get; set; }
+
         public Toy CreateNew()
         {
-            return new Ball();
+            return new Ball(BallColor);
         }
     }
 }
