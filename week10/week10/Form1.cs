@@ -12,6 +12,7 @@ using WorldsHardestGame;
 namespace week10
 {
     public partial class Form1 : Form
+
     {
         GameController gc = new GameController();
         GameArea ga;
@@ -20,6 +21,9 @@ namespace week10
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+
+        Brain winnerBrain = null;
+
         public Form1()
         {
             ga = gc.ActivateDisplay();
@@ -49,6 +53,18 @@ namespace week10
             label1.Text = string.Format(
                 "{0}. generáció",
                 generation);
+
+
+
+            var winners = from p in topPerformers
+                          where p.IsWinner
+                          select p;
+            if (winners.Count() > 0)
+            {
+                winnerBrain = winners.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+                return;
+            }
 
             gc.ResetCurrentLevel();
             foreach (var p in topPerformers)
