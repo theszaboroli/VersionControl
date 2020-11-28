@@ -21,6 +21,9 @@ namespace week10
             this.Controls.Add(ga);
             InitializeComponent();
 
+            gc.AddPlayer();
+            gc.Start(true);
+
         }
     }
 }
